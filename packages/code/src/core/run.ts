@@ -3,8 +3,9 @@ import pc from "picocolors";
 import { DEFAULT_DOC_CONFIG, loadConfig } from "./config";
 import { LIB_NAME, getFullPath } from "@/shared";
 import { defineDoc } from "./doc";
-import { ensureFileSync, outputJSON, readJsonSync } from "fs-extra/esm";
+import { mkdir, writeFile } from "fs/promises";
 import { Table } from "console-table-printer";
+import { mkdirSync, readFileSync } from "fs";
 
 const formatDuration = (ms: number): string => {
   if (ms < 1000) return `${ms}ms`;
@@ -19,7 +20,7 @@ const printSummaryTable = (results: DocResult[]): void => {
   }
 
   const table = new Table({
-    title: pc.green(LIB_NAME+" Generate Summary"),
+    title: pc.green(LIB_NAME + " Generate Summary"),
     columns: [
       { name: "标识", alignment: "left", color: "green" },
       { name: "输出路径", alignment: "left" },
@@ -33,23 +34,23 @@ const printSummaryTable = (results: DocResult[]): void => {
   for (const result of results) {
     const { api, ts } = result;
     table.addRow({
-      "标识": result.docConfig.name,
-      "输出路径": result.docConfig.output,
-      "模块总数": api.moduleTotal ?? 0,
-      "接口总数": api.apiTotal ?? 0,
-      "类型总数": ts.tsTotal ?? 0,
-      "耗时": formatDuration(result.durationMs),
+      标识: result.docConfig.name,
+      输出路径: result.docConfig.output,
+      模块总数: api.moduleTotal ?? 0,
+      接口总数: api.apiTotal ?? 0,
+      类型总数: ts.tsTotal ?? 0,
+      耗时: formatDuration(result.durationMs),
     });
   }
 
   const totalMs = results.reduce((sum, r) => sum + r.durationMs, 0);
   table.addRow({
-    "标识": "Total",
-    "输出路径": "",
-    "模块总数": results.reduce((sum, r) => sum + (r.api.moduleTotal ?? 0), 0),
-    "接口总数": results.reduce((sum, r) => sum + (r.api.apiTotal ?? 0), 0),
-    "类型总数": results.reduce((sum, r) => sum + (r.ts.tsTotal ?? 0), 0),
-    "耗时": formatDuration(totalMs),
+    标识: "Total",
+    输出路径: "",
+    模块总数: results.reduce((sum, r) => sum + (r.api.moduleTotal ?? 0), 0),
+    接口总数: results.reduce((sum, r) => sum + (r.api.apiTotal ?? 0), 0),
+    类型总数: results.reduce((sum, r) => sum + (r.ts.tsTotal ?? 0), 0),
+    耗时: formatDuration(totalMs),
   });
   // 清除之前的日志
   console.clear();
@@ -70,8 +71,8 @@ export const defineRun = async (options?: PluginOptions): Promise<void> => {
 
   let cacheConfig = { cache: { expires: {} } } as RecordType;
   try {
-    ensureFileSync(cachePath);
-    cacheConfig = readJsonSync(cachePath);
+    await mkdir(cachePath);
+    cacheConfig = JSON.parse(readFileSync(cachePath, { encoding: "utf-8" }));
   } catch {}
 
   const runDocResultList: Promise<DocResult>[] = [];
@@ -89,11 +90,11 @@ export const defineRun = async (options?: PluginOptions): Promise<void> => {
 
   const results = await Promise.all(runDocResultList);
 
-  outputJSON(cachePath, cacheConfig, {
+  mkdirSync(cachePath, { recursive: true });
+  writeFile(cachePath, JSON.stringify(cacheConfig, null, 2), {
     encoding: "utf-8",
     flag: "w",
     flush: true,
-    spaces: 2,
   });
 
   printSummaryTable(results);

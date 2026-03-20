@@ -1,7 +1,6 @@
 import type { ApiDocConfig, ApiParamsCtx, DocApiConfig, RecordType } from "@/types";
 import type { OpenAPIObject, ParameterLocation, ParameterObject as OasParameterObject, ReferenceObject, SchemaObject } from "openapi3-ts/oas31";
-import { getFullPath, toValue } from "@/shared";
-import { outputFileSync, removeSync } from "fs-extra/esm";
+import { toValue } from "@/shared";
 import { merge } from "es-toolkit";
 
 /** 内容类型映射-多类型生成时使用 */

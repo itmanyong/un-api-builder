@@ -1,8 +1,7 @@
 import { OpenAPIObject } from "openapi3-ts/oas31";
 import process from "process";
 import { join } from "path";
-import { readFileSync } from "fs";
-import { readJsonSync } from "fs-extra/esm";
+import {  readFileSync } from "fs";
 /**
  * 根据规则合并文件内容行
  * @param fileRows 文件内容行数组
@@ -37,7 +36,7 @@ export const fetchApiDoc = async (url: string): Promise<any> => {
     }
     // 是json文件就直接读取
     if (url.endsWith(".json")) {
-      return readJsonSync(getFullPath(url), { encoding: "utf-8" });
+      return JSON.parse(readFileSync(getFullPath(url), { encoding: "utf-8" }));
     }
     // 是本地路径就读取文件
     const localDoc = readFileSync(getFullPath(url), { encoding: "utf-8" });

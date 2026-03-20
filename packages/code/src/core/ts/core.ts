@@ -2,9 +2,9 @@ import type { SchemaObject, ReferenceObject, OpenAPIObject, ParameterObject } fr
 import type { ApiDocConfig, ApiParamsCtx } from "@/types";
 import { capitalizeUpper, getFullPath, LIB_NAME, mergeFileRows, toValue, toVariableNameCamelCase } from "@/shared";
 import { createSchemaToTs } from "./shared";
-import { outputFileSync, removeSync } from "fs-extra/esm";
 import { getApiNote, getDocNote, getModuleNote, getTypedParams, getTypedObjectWithNested } from "../note";
 import { API_TYPE_GENERATE_NAME } from "../config";
+import { mkdirSync, rmSync, writeFile } from "fs";
 
 /**
  * 判断指定类型的参数项是否必填
@@ -235,13 +235,14 @@ export const generateTsType = (apiDoc: OpenAPIObject, apiModuleMap: Map<string, 
 
   rootFileRows.push(`}`);
 
-  removeSync(getFullPath(docConfig.dts.path, docConfig.name));
+  rmSync(getFullPath(docConfig.dts.path, docConfig.name));
 
   for (const [filename, fileRows] of fileMap) {
     const filePath = getFullPath(docConfig.dts.path, docConfig.name, filename);
     mergeFileRows(fileRows, toValue(docConfig.dts.fileHeader, filePath, docConfig));
     const fileAllRows = [...fileRows, ...toValue(docConfig.dts.fileFooter, filePath, docConfig)];
-    outputFileSync(filePath, fileAllRows.join("\n") + "\n");
+    mkdirSync(filePath, { recursive: true });
+    writeFile(filePath, fileAllRows.join("\n") + "\n", { encoding: "utf-8", flag: "w", flush: true });
     result.fileTotal++;
   }
 

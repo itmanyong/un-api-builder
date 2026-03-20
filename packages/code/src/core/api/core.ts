@@ -1,20 +1,16 @@
 import type { DocResultApi, ApiDocConfig, RecordType, ApiParamsCtx } from "@/types";
 import type { OpenAPIObject } from "openapi3-ts/oas31";
 import { getFullPath, LIB_NAME, toValue, toVariableNameCamelCase } from "@/shared";
-import { outputFileSync, removeSync } from "fs-extra/esm";
 import { isEmptyObject, omitBy } from "es-toolkit";
-import { API_DEFINE_DIR_NAME, flattenApiMap } from "./shared";
+import { API_DEFINE_DIR_NAME } from "./shared";
 import { getDocNote, getApiNote, getModuleNote } from "../note";
 import { DEFAULT_FILE_HEADER } from "../config";
+import { mkdirSync, rmdirSync, writeFile } from "fs";
 
 /**
  * 生成单个模块的接口定义文件内容
  */
-const generateModuleFileContent = (
-  moduleName: string,
-  apiModuleList: Required<ApiParamsCtx>[],
-  docConfig: ApiDocConfig,
-): string[] => {
+const generateModuleFileContent = (moduleName: string, apiModuleList: Required<ApiParamsCtx>[], docConfig: ApiDocConfig): string[] => {
   const filename = `${moduleName}.${docConfig.outputType}`;
   const outputPath = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, filename);
   const fileContentJson = apiModuleList.reduce((acc, cur) => {
@@ -33,10 +29,7 @@ const generateModuleFileContent = (
 /**
  * 生成模块桶文件内容
  */
-const generateApiBucketContent = (
-  apiModuleMap: Map<string, Required<ApiParamsCtx>[]>,
-  docConfig: ApiDocConfig,
-): string[] => {
+const generateApiBucketContent = (apiModuleMap: Map<string, Required<ApiParamsCtx>[]>, docConfig: ApiDocConfig): string[] => {
   const content: string[] = [];
   for (const [moduleName] of apiModuleMap) {
     content.push(`export { default as ${moduleName} } from './${moduleName}.${docConfig.outputType}';`);
@@ -60,12 +53,7 @@ const buildApiCreationCode = (docConfig: ApiDocConfig, target: string): string =
 /**
  * 生成导出声明行
  */
-const buildExportLine = (
-  docConfig: ApiDocConfig,
-  exportName: string,
-  apiCreationCode: string,
-  comment?: string,
-): string[] => {
+const buildExportLine = (docConfig: ApiDocConfig, exportName: string, apiCreationCode: string, comment?: string): string[] => {
   const lines: string[] = [];
   if (comment) lines.push(comment);
   lines.push(`export const ${exportName} = ${apiCreationCode};`);
@@ -109,10 +97,7 @@ const generateApiExports = (docConfig: ApiDocConfig, apiModuleMap: Map<string, R
 /**
  * 生成文档桶文件内容
  */
-const generateDocBucketContent = (
-  docConfig: ApiDocConfig,
-  apiModuleMap: Map<string, Required<ApiParamsCtx>[]>,
-): string[] => {
+const generateDocBucketContent = (docConfig: ApiDocConfig, apiModuleMap: Map<string, Required<ApiParamsCtx>[]>): string[] => {
   const content: string[] = [];
   const docBucketFilename = getFullPath(docConfig.output, `index.${docConfig.outputType}`);
 
@@ -150,35 +135,33 @@ const generateDocBucketContent = (
 /**
  * 生成 API
  */
-export const generateApi = (
-  apiDoc: OpenAPIObject,
-  apiModuleMap: Map<string, Required<ApiParamsCtx>[]>,
-  docConfig: ApiDocConfig,
-): DocResultApi => {
+export const generateApi = (apiDoc: OpenAPIObject, apiModuleMap: Map<string, Required<ApiParamsCtx>[]>, docConfig: ApiDocConfig): DocResultApi => {
   let moduleTotal = 0;
   let apiTotal = 0;
   let fileTotal = 0;
 
+  rmdirSync(getFullPath(docConfig.output, docConfig.name));
+
   for (const [moduleName, apiModuleList] of apiModuleMap) {
     const outputPath = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, `${moduleName}.${docConfig.outputType}`);
     const fileContent = generateModuleFileContent(moduleName, apiModuleList, docConfig);
-    outputFileSync(outputPath, fileContent.join("\n") + "\n");
+    mkdirSync(outputPath, { recursive: true });
+    writeFile(outputPath, fileContent.join("\n"), { encoding: "utf-8", flag: "w", flush: true });
     moduleTotal++;
     apiTotal += apiModuleList.length;
     fileTotal++;
   }
-
   const apiBucketFilename = getFullPath(docConfig.output, API_DEFINE_DIR_NAME, `index.${docConfig.outputType}`);
   const apiBucketContent = generateApiBucketContent(apiModuleMap, docConfig);
-  outputFileSync(apiBucketFilename, apiBucketContent.join("\n"));
+  mkdirSync(apiBucketFilename, { recursive: true });
+  writeFile(apiBucketFilename, apiBucketContent.join("\n"), { encoding: "utf-8", flag: "w", flush: true });
   fileTotal++;
 
   const docBucketFilename = getFullPath(docConfig.output, `index.${docConfig.outputType}`);
   const docBucketContent = generateDocBucketContent(docConfig, apiModuleMap);
-  outputFileSync(docBucketFilename, docBucketContent.join("\n"));
+  mkdirSync(docBucketFilename, { recursive: true });
+  writeFile(docBucketFilename, docBucketContent.join("\n"), { encoding: "utf-8", flag: "w", flush: true });
   fileTotal++;
-
-  removeSync(getFullPath(docConfig.output, docConfig.name));
 
   return { moduleTotal, apiTotal, outputPath: docConfig.output, fileTotal };
 };

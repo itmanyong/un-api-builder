@@ -38,14 +38,12 @@
   },
   "dependencies": {
     "console-table-printer": "catalog:",
-    "fs-extra": "catalog:",
     "openapi3-ts": "catalog:",
     "oxfmt": "catalog:",
     "picocolors": "catalog:",
     "unconfig": "catalog:"
   },
   "devDependencies": {
-    "@types/fs-extra": "catalog:",
     "@types/node": "catalog:",
     "jsdom": "catalog:",
     "bumpp": "catalog:",

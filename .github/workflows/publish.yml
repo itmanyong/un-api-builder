@@ -27,6 +27,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Update version from tag
+        run: |
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          echo "Updating version to $TAG_VERSION"
+          sed -i "s/\"version\": \".*\"/\"version\": \"$TAG_VERSION\"/" packages/code/package.json
+
       - name: Build package
         run: pnpm --filter un-api-builder build
 
@@ -34,7 +40,7 @@ jobs:
         run: pnpm --filter un-api-builder test
 
       - name: Publish to npm
-        run: pnpm --filter un-api-builder publish --access public --no-git-checks
+        run: pnpm --filter un-api-builder publish --access public --no-git-checks --force
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
