@@ -17,7 +17,7 @@
     "openapi3-ts": "catalog:",
     "oxfmt": "catalog:",
     "typescript": "catalog:",
-    "un-api-builder": "workspace:*",
+    "un-api-builder": "catalog:",
     "vite": "catalog:"
   }
 }

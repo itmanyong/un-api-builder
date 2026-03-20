@@ -8,12 +8,11 @@
   "type": "module",
   "scripts": {
     "dev:demo": "turbo  --filter=\"./examples/*\" dev",
-    "dev:demo:vue": "turbo  --filter=\"vite-vue\" dev",
-    "dev:demo:vanilla": "turbo  --filter=\"vite-vanilla\" dev",
     "dev": "turbo  --filter=\"./packages/*\" dev",
     "build": "turbo  --filter=\"./packages/*\" build",
     "format": "oxfmt ./",
-    "test": "turbo  --filter=\"./packages/*\" test"
+    "test": "turbo  --filter=\"./packages/*\" test",
+    "clean": "node ./scripts/clean.js"
   },
   "devDependencies": {
     "@types/node": "catalog:",
