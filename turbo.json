@@ -1,0 +1,31 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalDependencies": ["tsconfig.json", "tsconfig.*.json", "tsdown.config.ts", "vite.config.ts"],
+  "globalEnv": ["NODE_ENV"],
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "interruptible": true,
+      "inputs": ["src/**"]
+    },
+    "dev:demo": {
+      "cache": false,
+      "persistent": true,
+      "interruptible": true,
+      "inputs": ["src/**","/packages/code/**"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "build/**", "out/**", ".*/**"],
+      "inputs": ["src/**", "package.json","tsdown.config.ts"]
+    },
+    "test": {
+      "cache": false,
+      "persistent": true,
+      "interruptible": true,
+      "inputs": ["src/**"]
+    }
+  }
+}

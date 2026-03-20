@@ -1,0 +1,23 @@
+[6n[?9001h[?1004h[m]0;C:\Program Files\Volta\pnpm.exe[?25h]0;管理员:  C:\Windows\system32\cmd.exe [?25l
+> un-api-builder@0.0.1 build G:\001-我的产品\un-api-builder\packages\code
+> tsdown[5;1H[?25h[34mℹ [mtsdown [2mv0.21.4[22m powered by rolldown [2mv1.0.0-rc.9
+[22m[34mℹ [mconfig file: [4mG:\001-我的产品\un-api-builder\packages\code\tsdown.config.ts[24m 
+[34mℹ [mentry: [34msrc\index.ts, src\browser\index.ts
+ℹ [mtarget: [34mes2020
+ℹ [mtsconfig: [34mtsconfig.json
+ℹ [mBuild start[34m
+ℹ [mCleaning 11 files
+The `tsgo` option is experimental and may change in the future.
+[34mℹ [m[2mdist\[22m[1mindex.mjs[22m[17X[2m[17C44.62 kB[22m [2m│ gzip: 11.77 kB
+[22m[34mℹ [m[2mdist\[22m[1mbrowser.mjs[22m[15X[2m[15C 0.38 kB[22m [2m│ gzip:  0.16 kB[34m[22m
+ℹ [m[2mdist\[22mindex.mjs.map[13X[2m[13C86.63 kB[22m [2m│ gzip: 20.93 kB[34m[22m
+ℹ [m[2mdist\[22mbrowser-DB62o4LC.mjs.map  [2m10.03 kB[22m [2m│ gzip:  2.35 kB[34m[22m
+ℹ [m[2mdist\[22mbrowser-DB62o4LC.mjs      [2m 4.54 kB[22m [2m│ gzip:  1.29 kB[34m[22m
+ℹ [m[2mdist\[22mindex.d.mts.map[11X[2m[11C 2.31 kB[22m [2m│ gzip:  0.94 kB[34m[22m
+ℹ [m[2mdist\[22mindex-BiowQHCg.d.mts.map  [2m 1.94 kB[22m [2m│ gzip:  0.53 kB[34m[22m
+ℹ [m[2mdist\[32m[22m[1mindex.d.mts[m[15X[2m[15C10.74 kB[22m [2m│ gzip:  3.55 kB[34m[22m
+ℹ [m[2mdist\[32m[22m[1mbrowser.d.mts[m[13X[2m[13C 0.38 kB[22m [2m│ gzip:  0.16 kB[34m[22m
+ℹ [m[2mdist\[32m[22mindex-BiowQHCg.d.mts      [m[2m 4.14 kB[22m [2m│ gzip:  0.99 kB[34m[22m
+ℹ [m10 files, total: 165.72 kB[32m
+✔ [mBuild complete in [32m184ms
+[?9001l[?1004l[m

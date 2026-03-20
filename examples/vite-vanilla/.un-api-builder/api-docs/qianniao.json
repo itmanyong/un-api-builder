@@ -1,0 +1,3008 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "BPMS统一门户认证系统 API文档",
+    "description": "统一门户认证系统接口文档，提供SSO单点登录、用户管理、租户管理、应用管理等功能",
+    "contact": {
+      "name": "青鸟BP互联",
+      "email": "support@qnbp.com"
+    },
+    "license": {
+      "name": "私有协议",
+      "url": ""
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://202.100.48.170:7661",
+      "description": "Generated server url"
+    }
+  ],
+  "security": [
+    {
+      "Bearer Token": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "操作日志",
+      "description": "用户操作日志查询与清理"
+    },
+    {
+      "name": "应用管理",
+      "description": "应用增删改查、密钥管理等接口"
+    },
+    {
+      "name": "文件上传下载",
+      "description": "文件上传下载"
+    },
+    {
+      "name": "异常日志",
+      "description": "系统异常日志查询与清理"
+    },
+    {
+      "name": "认证管理",
+      "description": "用户登录、登出、Token刷新等认证相关接口"
+    },
+    {
+      "name": "登录日志",
+      "description": "用户登录日志查询与清理"
+    },
+    {
+      "name": "用户管理",
+      "description": "用户增删改查、密码重置、权限分配等接口"
+    }
+  ],
+  "paths": {
+    "/api/app/{id}": {
+      "get": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "获取应用详情",
+        "description": "根据ID获取应用信息",
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "应用ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSysApp"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "更新应用",
+        "description": "修改应用基本信息",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "应用ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "删除应用",
+        "description": "逻辑删除应用",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "应用ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/file/upload": {
+      "post": {
+        "tags": [
+          "文件上传下载"
+        ],
+        "summary": "上传文件（FormData）",
+        "operationId": "upload",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "binary"
+            }
+          },
+          {
+            "name": "parentPath",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultUploadResultDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/file/upload/batch": {
+      "post": {
+        "tags": [
+          "文件上传下载"
+        ],
+        "summary": "批量上传文件（FormData）",
+        "operationId": "uploadBatch",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          },
+          {
+            "name": "parentPath",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultListUploadResultDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/validate": {
+      "post": {
+        "tags": [
+          "认证管理"
+        ],
+        "summary": "验证Token",
+        "description": "验证Token有效性，供业务系统调用",
+        "operationId": "validate",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultUserInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": [
+          "认证管理"
+        ],
+        "summary": "刷新Token",
+        "description": "使用RefreshToken获取新的AccessToken",
+        "operationId": "refresh",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultTokenInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "认证管理"
+        ],
+        "summary": "用户登出",
+        "description": "登出当前用户，Token加入黑名单",
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "认证管理"
+        ],
+        "summary": "用户登录",
+        "description": "使用用户名密码登录，返回AccessToken和RefreshToken",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultLoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/app": {
+      "post": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "创建应用",
+        "description": "新增应用，自动生成AppKey和AppSecret",
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultMapStringObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/app/{id}/status": {
+      "post": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "修改状态",
+        "description": "启用或停用应用（body:{\"status\":\"ENABLE\"}）",
+        "operationId": "toggleStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "应用ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string",
+                  "enum": [
+                    "{\"name\":\"ENABLE\",\"desc\":\"启用\"}",
+                    "{\"name\":\"DISABLE\",\"desc\":\"禁用\"}"
+                  ]
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/app/{id}/regenerate-secret": {
+      "post": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "重新生成密钥",
+        "description": "重新生成应用的AppSecret",
+        "operationId": "regenerateSecret",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "应用ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultMapStringString"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/allEnums": {
+      "get": {
+        "tags": [
+          "用户管理"
+        ],
+        "summary": "获取所有枚举信息",
+        "operationId": "selectEnumList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/oper/{id}": {
+      "get": {
+        "tags": [
+          "操作日志"
+        ],
+        "summary": "获取操作日志详情",
+        "description": "根据ID获取操作日志，包含请求参数和响应结果",
+        "operationId": "getById_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "日志ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSysOperLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/oper/page": {
+      "get": {
+        "tags": [
+          "操作日志"
+        ],
+        "summary": "分页查询操作日志",
+        "description": "支持按模块、用户名、状态筛选",
+        "operationId": "page",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "操作模块",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "用户名",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态(1成功 0失败)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "{\"name\":\"SUCCESS\",\"desc\":\"成功\"}",
+                "{\"name\":\"FAIL\",\"desc\":\"失败\"}"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResultSysOperLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/login/{id}": {
+      "get": {
+        "tags": [
+          "登录日志"
+        ],
+        "summary": "获取登录日志详情",
+        "description": "根据ID获取登录日志",
+        "operationId": "getById_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "日志ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSysLoginLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/login/page": {
+      "get": {
+        "tags": [
+          "登录日志"
+        ],
+        "summary": "分页查询登录日志",
+        "description": "支持按用户名、状态筛选",
+        "operationId": "page_1",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "用户名",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态(1成功 0失败)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "{\"name\":\"SUCCESS\",\"desc\":\"成功\"}",
+                "{\"name\":\"FAIL\",\"desc\":\"失败\"}"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResultSysLoginLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/exception/{id}": {
+      "get": {
+        "tags": [
+          "异常日志"
+        ],
+        "summary": "获取异常日志详情",
+        "description": "根据ID获取异常日志，包含完整堆栈信息",
+        "operationId": "getById_3",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "日志ID",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultSysExceptionLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/exception/page": {
+      "get": {
+        "tags": [
+          "异常日志"
+        ],
+        "summary": "分页查询异常日志",
+        "description": "支持按异常类型、用户名筛选",
+        "operationId": "page_2",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "exceptionType",
+            "in": "query",
+            "description": "异常类型",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "用户名",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResultSysExceptionLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/file/download": {
+      "get": {
+        "tags": [
+          "文件上传下载"
+        ],
+        "summary": "下载文件",
+        "operationId": "download",
+        "parameters": [
+          {
+            "name": "path",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/info": {
+      "get": {
+        "tags": [
+          "认证管理"
+        ],
+        "summary": "获取当前用户信息",
+        "description": "获取当前登录用户的详细信息",
+        "operationId": "info",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultUserInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/app/page": {
+      "get": {
+        "tags": [
+          "应用管理"
+        ],
+        "summary": "分页查询应用",
+        "description": "支持按应用名称、类型、状态筛选",
+        "operationId": "page_3",
+        "parameters": [
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "页码",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "appName",
+            "in": "query",
+            "description": "应用名称",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "appType",
+            "in": "query",
+            "description": "应用类型(1Web 2小程序)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "{\"name\":\"WEB\",\"desc\":\"Web系统\"}",
+                "{\"name\":\"MINIAPP\",\"desc\":\"小程序\"}"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态(1正常 0停用)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "{\"name\":\"ENABLE\",\"desc\":\"启用\"}",
+                "{\"name\":\"DISABLE\",\"desc\":\"禁用\"}"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultPageResultSysApp"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/oper/clean": {
+      "delete": {
+        "tags": [
+          "操作日志"
+        ],
+        "summary": "清理操作日志",
+        "description": "清理指定天数之前的操作日志(body:{\"days\":10})",
+        "operationId": "clean",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultInteger"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/login/clean": {
+      "delete": {
+        "tags": [
+          "登录日志"
+        ],
+        "summary": "清理登录日志",
+        "description": "清理指定天数之前的登录日志(body:{\"days\":10})",
+        "operationId": "clean_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultInteger"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/log/exception/clean": {
+      "delete": {
+        "tags": [
+          "异常日志"
+        ],
+        "summary": "清理异常日志",
+        "description": "清理指定天数之前的异常日志(body:{\"days\":10})",
+        "operationId": "clean_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultInteger"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResultVoid"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ResultVoid": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AppCreateRequest": {
+        "type": "object",
+        "description": "创建应用请求",
+        "properties": {
+          "appCode": {
+            "type": "string",
+            "description": "应用编码",
+            "example": "portal",
+            "minLength": 1
+          },
+          "appName": {
+            "type": "string",
+            "description": "应用名称",
+            "example": "统一门户",
+            "minLength": 1
+          },
+          "appUrl": {
+            "type": "string",
+            "description": "应用地址",
+            "example": "http://localhost:8082"
+          },
+          "appIcon": {
+            "type": "string",
+            "description": "应用图标URL"
+          },
+          "appDesc": {
+            "type": "string",
+            "description": "应用描述",
+            "example": "统一门户应用"
+          },
+          "appType": {
+            "type": "string",
+            "description": "应用类型(1Web 2小程序 3移动端)",
+            "enum": [
+              "{\"name\":\"WEB\",\"desc\":\"Web系统\"}",
+              "{\"name\":\"MINIAPP\",\"desc\":\"小程序\"}"
+            ],
+            "example": 1
+          },
+          "logoutUrl": {
+            "type": "string",
+            "description": "登出地址",
+            "example": "http://localhost:8082/logout"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32",
+            "description": "排序",
+            "example": 0
+          },
+          "remark": {
+            "type": "string",
+            "description": "备注"
+          }
+        },
+        "required": [
+          "appCode",
+          "appName"
+        ]
+      },
+      "ResultUploadResultDTO": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UploadResultDTO",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UploadResultDTO": {
+        "type": "object",
+        "properties": {
+          "originalFileName": {
+            "type": "string"
+          },
+          "savePath": {
+            "type": "string"
+          }
+        }
+      },
+      "ResultListUploadResultDTO": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "type": "array",
+            "description": "数据",
+            "items": {
+              "$ref": "#/components/schemas/UploadResultDTO"
+            }
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AppInfo": {
+        "type": "object",
+        "description": "应用信息",
+        "properties": {
+          "appId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "应用ID",
+            "example": 1
+          },
+          "appCode": {
+            "type": "string",
+            "description": "应用编码",
+            "example": "portal"
+          },
+          "appName": {
+            "type": "string",
+            "description": "应用名称",
+            "example": "统一门户"
+          },
+          "appUrl": {
+            "type": "string",
+            "description": "应用地址",
+            "example": "http://localhost:8082"
+          },
+          "appIcon": {
+            "type": "string",
+            "description": "应用图标"
+          }
+        }
+      },
+      "ResultUserInfo": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserInfo",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "description": "用户信息",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "用户ID",
+            "example": 1
+          },
+          "username": {
+            "type": "string",
+            "description": "用户名",
+            "example": "admin"
+          },
+          "realName": {
+            "type": "string",
+            "description": "真实姓名",
+            "example": "管理员"
+          },
+          "phone": {
+            "type": "string",
+            "description": "手机号",
+            "example": 13800138000
+          },
+          "avatar": {
+            "type": "string",
+            "description": "头像URL"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "租户ID",
+            "example": 1
+          },
+          "tenantName": {
+            "type": "string",
+            "description": "租户名称",
+            "example": "默认租户"
+          },
+          "apps": {
+            "type": "array",
+            "description": "拥有的应用列表",
+            "items": {
+              "$ref": "#/components/schemas/AppInfo"
+            }
+          }
+        }
+      },
+      "RefreshTokenRequest": {
+        "type": "object",
+        "description": "刷新Token请求",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "刷新令牌",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "refreshToken"
+        ]
+      },
+      "ResultTokenInfo": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TokenInfo",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TokenInfo": {
+        "type": "object",
+        "description": "Token信息",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "访问令牌",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "刷新令牌",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "expiresIn": {
+            "type": "integer",
+            "format": "int64",
+            "description": "过期时间(秒)",
+            "example": 7200
+          },
+          "tokenType": {
+            "type": "string",
+            "description": "令牌类型",
+            "example": "Bearer"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "description": "登录请求",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "用户名",
+            "example": "admin",
+            "minLength": 1
+          },
+          "password": {
+            "type": "string",
+            "description": "密码",
+            "example": "MD5(admin123)",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "password",
+          "username"
+        ]
+      },
+      "LoginResponse": {
+        "type": "object",
+        "description": "登录响应",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "访问令牌",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "刷新令牌",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          },
+          "expiresIn": {
+            "type": "integer",
+            "format": "int64",
+            "description": "过期时间(秒)",
+            "example": 7200
+          },
+          "tokenType": {
+            "type": "string",
+            "description": "令牌类型",
+            "example": "Bearer"
+          },
+          "userInfo": {
+            "$ref": "#/components/schemas/UserInfo",
+            "description": "用户信息"
+          }
+        }
+      },
+      "ResultLoginResponse": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/LoginResponse",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultMapStringObject": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultMapStringString": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Result": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultSysOperLog": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SysOperLog",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SysOperLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "tenantId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "module": {
+            "type": "string"
+          },
+          "operType": {
+            "type": "string",
+            "enum": [
+              "{\"name\":\"OTHER\",\"desc\":\"其他\"}",
+              "{\"name\":\"INSERT\",\"desc\":\"新增\"}",
+              "{\"name\":\"UPDATE\",\"desc\":\"修改\"}",
+              "{\"name\":\"DELETE\",\"desc\":\"删除\"}",
+              "{\"name\":\"QUERY\",\"desc\":\"查询\"}",
+              "{\"name\":\"EXPORT\",\"desc\":\"导出\"}",
+              "{\"name\":\"IMPORT\",\"desc\":\"导入\"}",
+              "{\"name\":\"GRANT\",\"desc\":\"授权\"}",
+              "{\"name\":\"FORCE_LOGOUT\",\"desc\":\"强制退出\"}"
+            ]
+          },
+          "operDesc": {
+            "type": "string"
+          },
+          "methodName": {
+            "type": "string"
+          },
+          "requestMethod": {
+            "type": "string"
+          },
+          "requestUrl": {
+            "type": "string"
+          },
+          "requestParams": {
+            "type": "string"
+          },
+          "responseResult": {
+            "type": "string"
+          },
+          "errorMsg": {
+            "type": "string"
+          },
+          "operIp": {
+            "type": "string"
+          },
+          "operLocation": {
+            "type": "string"
+          },
+          "costTime": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "{\"name\":\"SUCCESS\",\"desc\":\"成功\"}",
+              "{\"name\":\"FAIL\",\"desc\":\"失败\"}"
+            ]
+          },
+          "operTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageResultSysOperLog": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "pageNum": {
+            "type": "integer",
+            "format": "int64",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "每页大小",
+            "example": 10
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总记录数",
+            "example": 100
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总页数",
+            "example": 10
+          },
+          "list": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/SysOperLog"
+            }
+          }
+        }
+      },
+      "ResultPageResultSysOperLog": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageResultSysOperLog",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultSysLoginLog": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SysLoginLog",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SysLoginLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "loginType": {
+            "type": "string",
+            "enum": [
+              "{\"name\":\"PASSWORD\",\"desc\":\"账号密码\"}",
+              "{\"name\":\"MINIAPP\",\"desc\":\"小程序\"}"
+            ]
+          },
+          "loginIp": {
+            "type": "string"
+          },
+          "loginLocation": {
+            "type": "string"
+          },
+          "browser": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "{\"name\":\"SUCCESS\",\"desc\":\"成功\"}",
+              "{\"name\":\"FAIL\",\"desc\":\"失败\"}"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "loginTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageResultSysLoginLog": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "pageNum": {
+            "type": "integer",
+            "format": "int64",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "每页大小",
+            "example": 10
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总记录数",
+            "example": 100
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总页数",
+            "example": 10
+          },
+          "list": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/SysLoginLog"
+            }
+          }
+        }
+      },
+      "ResultPageResultSysLoginLog": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageResultSysLoginLog",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultSysExceptionLog": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SysExceptionLog",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SysExceptionLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "exceptionType": {
+            "type": "string"
+          },
+          "exceptionMessage": {
+            "type": "string"
+          },
+          "exceptionStack": {
+            "type": "string"
+          },
+          "requestUrl": {
+            "type": "string"
+          },
+          "requestMethod": {
+            "type": "string"
+          },
+          "requestParams": {
+            "type": "string"
+          },
+          "className": {
+            "type": "string"
+          },
+          "methodName": {
+            "type": "string"
+          },
+          "lineNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exceptionIp": {
+            "type": "string"
+          },
+          "exceptionTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PageResultSysExceptionLog": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "pageNum": {
+            "type": "integer",
+            "format": "int64",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "每页大小",
+            "example": 10
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总记录数",
+            "example": 100
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总页数",
+            "example": 10
+          },
+          "list": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/SysExceptionLog"
+            }
+          }
+        }
+      },
+      "ResultPageResultSysExceptionLog": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageResultSysExceptionLog",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultSysApp": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/SysApp",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SysApp": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "appCode": {
+            "type": "string"
+          },
+          "appName": {
+            "type": "string"
+          },
+          "appKey": {
+            "type": "string"
+          },
+          "appSecret": {
+            "type": "string"
+          },
+          "appUrl": {
+            "type": "string"
+          },
+          "appIcon": {
+            "type": "string"
+          },
+          "appDesc": {
+            "type": "string"
+          },
+          "appType": {
+            "type": "string",
+            "enum": [
+              "{\"name\":\"WEB\",\"desc\":\"Web系统\"}",
+              "{\"name\":\"MINIAPP\",\"desc\":\"小程序\"}"
+            ]
+          },
+          "logoutUrl": {
+            "type": "string"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "{\"name\":\"ENABLE\",\"desc\":\"启用\"}",
+              "{\"name\":\"DISABLE\",\"desc\":\"禁用\"}"
+            ]
+          },
+          "remark": {
+            "type": "string"
+          },
+          "createTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createBy": {
+            "type": "string"
+          },
+          "updateBy": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PageResultSysApp": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "pageNum": {
+            "type": "integer",
+            "format": "int64",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": "每页大小",
+            "example": 10
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总记录数",
+            "example": 100
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总页数",
+            "example": 10
+          },
+          "list": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/SysApp"
+            }
+          }
+        }
+      },
+      "ResultPageResultSysApp": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageResultSysApp",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ResultInteger": {
+        "type": "object",
+        "description": "统一响应结果",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态码",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "消息",
+            "example": "操作成功"
+          },
+          "data": {
+            "type": "integer",
+            "format": "int32",
+            "description": "数据"
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳",
+            "example": 1700000000000
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer Token": {
+        "type": "http",
+        "description": "JWT认证令牌，格式: Bearer {token}",
+        "name": "Bearer Token",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
