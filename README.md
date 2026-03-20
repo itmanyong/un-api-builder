@@ -2,6 +2,10 @@
 
 OpenAPI 3 规范 API 构建器 - 自动从 OpenAPI 文档生成类型安全的 API 代码和 TypeScript 类型定义。
 
+`文档目前为AI生成，后续会完善文档`
+
+
+
 ## 概述
 
 `un-api-builder` 是一个基于 OpenAPI 3.x 规范的 API 代码生成工具。它可以自动从 OpenAPI 文档生成：
@@ -68,10 +72,10 @@ export default defineConfig({
 ```typescript
 // vite.config.ts
 import { defineConfig } from "vite";
-import { unApiBuilder } from "un-api-builder";
+import { vitePlugin } from "un-api-builder";
 
 export default defineConfig({
-  plugins: [unApiBuilder()],
+  plugins: [vitePlugin()],
 });
 ```
 
