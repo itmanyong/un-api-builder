@@ -5,19 +5,20 @@
 [34mℹ [mentry: [34msrc\index.ts, src\browser\index.ts
 ℹ [mtarget: [34mes2020
 ℹ [mtsconfig: [34mtsconfig.json
-ℹ [mBuild start[34m
-ℹ [mCleaning 11 files
+ℹ [mBuild start
 The `tsgo` option is experimental and may change in the future.
-[34mℹ [m[2mdist\[22m[1mindex.mjs[22m[17X[2m[17C44.62 kB[22m [2m│ gzip: 11.77 kB
-[22m[34mℹ [m[2mdist\[22m[1mbrowser.mjs[22m[15X[2m[15C 0.38 kB[22m [2m│ gzip:  0.16 kB[34m[22m
-ℹ [m[2mdist\[22mindex.mjs.map[13X[2m[13C86.63 kB[22m [2m│ gzip: 20.93 kB[34m[22m
-ℹ [m[2mdist\[22mbrowser-DB62o4LC.mjs.map  [2m10.03 kB[22m [2m│ gzip:  2.35 kB[34m[22m
-ℹ [m[2mdist\[22mbrowser-DB62o4LC.mjs      [2m 4.54 kB[22m [2m│ gzip:  1.29 kB[34m[22m
-ℹ [m[2mdist\[22mindex.d.mts.map[11X[2m[11C 2.31 kB[22m [2m│ gzip:  0.94 kB[34m[22m
-ℹ [m[2mdist\[22mindex-BiowQHCg.d.mts.map  [2m 1.94 kB[22m [2m│ gzip:  0.53 kB[34m[22m
-ℹ [m[2mdist\[32m[22m[1mindex.d.mts[m[15X[2m[15C10.74 kB[22m [2m│ gzip:  3.55 kB[34m[22m
-ℹ [m[2mdist\[32m[22m[1mbrowser.d.mts[m[13X[2m[13C 0.38 kB[22m [2m│ gzip:  0.16 kB[34m[22m
-ℹ [m[2mdist\[32m[22mindex-BiowQHCg.d.mts      [m[2m 4.14 kB[22m [2m│ gzip:  0.99 kB[34m[22m
-ℹ [m10 files, total: 165.72 kB[32m
-✔ [mBuild complete in [32m184ms
+[34mℹ [m[2mdist\[22m[1mindex.mjs[22m[19X[2m[19C44.29 kB[22m [2m│ gzip: 11.67 kB
+[22m[34mℹ [m[2mdist\[22m[1mbrowser.mjs[22m[17X[2m[17C 4.45 kB[22m [2m│ gzip:  1.26 kB[34m[22m
+ℹ [m[2mdist\[22mindex.mjs.map[15X[2m[15C86.63 kB[22m [2m│ gzip: 20.93 kB[34m[22m
+ℹ [m[2mdist\[22mbrowser.mjs.map[13X[2m[13C 9.93 kB[22m [2m│ gzip:  2.31 kB[34m[22m
+ℹ [m[2mdist\[22mindex.d.mts.map[13X[2m[13C 2.31 kB[22m [2m│ gzip:  0.94 kB[34m[22m
+ℹ [m[2mdist\[22mbrowser.d.mts.map[11X[2m[11C 1.34 kB[22m [2m│ gzip:  0.31 kB[34m[22m
+ℹ [m[2mdist\[22mcommon-xz5KQM98.d.mts.map   [2m 0.67 kB[22m [2m│ gzip:  0.33 kB[34m[22m
+ℹ [m[2mdist\[22mconstants-C2USEhSG.mjs.map  [2m 0.19 kB[22m [2m│ gzip:  0.17 kB[34m[22m
+ℹ [m[2mdist\[22mconstants-C2USEhSG.mjs      [2m 0.16 kB[22m [2m│ gzip:  0.15 kB[34m[22m
+ℹ [m[2mdist\[32m[22m[1mindex.d.mts[m[17X[2m[17C10.41 kB[22m [2m│ gzip:  3.47 kB[34m[22m
+ℹ [m[2mdist\[32m[22m[1mbrowser.d.mts[m[15X[2m[15C 2.98 kB[22m [2m│ gzip:  0.61 kB[34m[22m
+ℹ [m[2mdist\[32m[22mcommon-xz5KQM98.d.mts       [m[2m 1.28 kB[22m [2m│ gzip:  0.52 kB[34m[22m
+ℹ [m12 files, total: 164.65 kB[32m
+✔ [mBuild complete in [32m244ms
 [?9001l[?1004l[m
